@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julia Sobolieva — Operations & Client Support Specialist</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-black: #08080a;
+            --white: #FEFFFC;
+            --banana-yellow: #D0FF00;
+            --plum-violet: #8116E0;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --font-title: 'Syne', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .glow-1 {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(129, 22, 224, 0.35) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseGlow 8s infinite alternate;
+        }
+
+        .glow-2 {
+            position: absolute;
+            top: 40%;
+            left: -10%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(208, 255, 0, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate-reverse;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+            100% { transform: scale(1.2) translate(-20px, 20px); opacity: 0.9; }
+        }
+
+        /* Header & Nav */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            background: rgba(8, 8, 10, 0.7);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.2rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--banana-yellow);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: var(--banana-yellow);
+        }
+
+        .btn-main {
+            background: var(--plum-violet);
+            color: var(--white);
+            padding: 0.7rem 1.6rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(129, 22, 224, 0.4);
+        }
+
+        .btn-main:hover {
+            background: var(--banana-yellow);
+            color: var(--bg-black);
+            box-shadow: 0 0 20px rgba(208, 255, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 180px 8% 100px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 4rem;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-title);
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero-text h1 span {
+            color: var(--banana-yellow);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(254, 255, 252, 0.8);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Photo Frame & Floating Visuals */
+        .hero-img-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            width: 320px;
+            height: 420px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: 0.5s ease;
+        }
+
+        .photo-wrapper:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        /* Animated NFT Fluid Shape Effect */
+        .fluid-shape {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, var(--plum-violet), var(--banana-yellow));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+            top: -20px;
+            right: -20px;
+            animation: morphing 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes morphing {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: rotate(180deg); }
+        }
+
+        /* Sections General */
+        section {
+            padding: 100px 8%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--banana-yellow);
+            border-radius: 2px;
+        }
+
+        /* Cards & Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--plum-violet);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(129, 22, 224, 0.2);
+        }
+
+        /* Skills Tag Cloud */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--banana-yellow);
+            color: var(--bg-black);
+            border-color: var(--banana-yellow);
+        }
+
+        .skill-tag i {
+            color: var(--banana-yellow);
+        }
+
+        .skill-tag:hover i {
+            color: var(--bg-black);
+        }
+
+        /* Timeline / Experience */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--card-border);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--plum-violet);
+            box-shadow: 0 0 10px var(--plum-violet);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--banana-yellow);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-company {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-list {
+            list-style: none;
+        }
+
+        .timeline-list li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .timeline-list li::before {
+            content: '•';
+            color: var(--banana-yellow);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Footer / Contact */
+        footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--card-border);
+            padding: 80px 8% 40px;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 3rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1rem 1.8rem;
+            border-radius: 50px;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--banana-yellow);
+            color: var(--banana-yellow);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Adaptability */
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 140px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-img-container {
+                margin-top: 2rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">JULIA<span>.S</span></div>
+        <nav>
+            <ul>
+                <li><a href="#about">Про мене</a></li>
+                <li><a href="#skills">Навички</a></li>
+                <li><a href="#experience">Досвід</a></li>
+            </ul>
+        </nav>
+        <a href="https://t.me/yunnlea" target="_blank" class="btn-main">
+            <i data-lucide="send"></i> Зв'язатися
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Julia <br><span>Sobolieva</span></h1>
+            <p class="hero-subtitle">Operations & Client Support Specialist. Забезпечую бездоганний операційний супровід, CRM-управління та високий рівень клієнтського сервісу.</p>
+            <div class="hero-buttons">
+                <a href="#experience" class="btn-main">
+                    Переглянути досвід <i data-lucide="arrow-down-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-img-container">
+            <div class="fluid-shape"></div>
+            <div class="photo-wrapper">
+                <img src="profile.jpg" alt="Julia Sobolieva">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">Про мене</h2>
+        <div class="card">
+            <p style="font-size: 1.1rem; opacity: 0.9; max-width: 800px;">
+                Я організована та ініціативна фахівчиня з операційної підтримки та роботи з клієнтами. Маю практичний досвід у координації проєктів, управлінні партнерами, адмініструванні онлайн-курсів та веденні повного циклу документообігу. Поєдную клієнтоорієнтованість, структурний підхід та увагу до кожної деталі.
+            </p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Навички & Інструменти</h2>
+        <div class="skills-container">
+            <div class="skill-tag"><i data-lucide="check-circle"></i> CRM Management</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Document & Contract Management</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Marketing & Content Planning</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Partner & Sponsor Coordination</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Online Course Administration</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Google Workspace & MS Office</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Strong Communication</div>
+            <div class="skill-tag"><i data-lucide="check-circle"></i> Time Management</div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Досвід роботи</h2>
+        <div class="timeline">
+            
+            <div class="card timeline-item">
+                <div class="timeline-date">Jul 2025 — Present</div>
+                <div class="timeline-title">Operations & Client Support Specialist</div>
+                <div class="timeline-company">Cyprus Business Club</div>
+                <ul class="timeline-list">
+                    <li>Повний цикл управління клієнтами та ведення CRM-системи.</li>
+                    <li>Підготовка та обробка договорів і рахунків.</li>
+                    <li>Розробка маркетингових планів та комерційних пропозицій.</li>
+                    <li>Координація партнерів та спонсорів заходів.</li>
+                    <li>Адміністрування онлайн-курсів (публікація контенту, перевірка ДЗ, підтримка).</li>
+                    <li>Календарна та адміністративна підтримка Co-Founder.</li>
+                </ul>
+            </div>
+
+            <div class="card timeline-item">
+                <div class="timeline-date">Apr 2025 — Dec 2025</div>
+                <div class="timeline-title">Content Creator</div>
+                <div class="timeline-company">Chelsey Village Restaurant</div>
+                <ul class="timeline-list">
+                    <li>Планування контенту та розробка SMM-стратегії.</li>
+                    <li>Створення дописів, Reels та Stories.</li>
+                    <li>Дизайн постерів подій, банерів та макетів меню.</li>
+                    <li>Монтаж та обробка фото і відео.</li>
+                </ul>
+            </div>
+
+            <div class="card timeline-item">
+                <div class="timeline-date">Dec 2018 — Jul 2025</div>
+                <div class="timeline-title">Translator / Interpreter</div>
+                <div class="timeline-company">Natasha Club</div>
+                <ul class="timeline-list">
+                    <li>Письмовий переклад та вичитка матеріалів.</li>
+                    <li>Синхронний переклад листування та чатів.</li>
+                    <li>Підтримка клієнтів та вирішення спірних/конфліктних ситуацій.</li>
+                    <li>Навчання та онбординг нових співробітників.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer / Contacts -->
+    <footer>
+        <h2 style="font-family: var(--font-title); font-size: 2rem;">Давайте працювати разом!</h2>
+        <p style="opacity: 0.7; margin-top: 0.5rem;">Відкрита до нових цікавих проєктів та пропозицій.</p>
+        
+        <div class="contact-links">
+            <a href="https://t.me/yunnlea" target="_blank" class="contact-card">
+                <i data-lucide="send"></i> Telegram
+            </a>
+            <a href="mailto:sjackleen25@gmail.com" class="contact-card">
+                <i data-lucide="mail"></i> sjackleen25@gmail.com
+            </a>
+            <a href="tel:+380963009877" class="contact-card">
+                <i data-lucide="phone"></i> +380 (96) 300 98 77
+            </a>
+        </div>
+
+        <p style="font-size: 0.8rem; opacity: 0.4;">© 2026 Julia Sobolieva. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Ініціалізація іконок Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
